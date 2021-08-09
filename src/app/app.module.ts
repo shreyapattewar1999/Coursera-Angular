@@ -9,6 +9,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { DishService } from './services/dish.service';
+import { PromotionService } from './services/promotion.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import 'hammerjs';
@@ -52,7 +53,8 @@ import { ContactComponent } from './contact/contact.component';
   
   ],
   providers: [
-    DishService
+    DishService, 
+    PromotionService
   ],
   bootstrap: [AppComponent]
 })
