@@ -13,7 +13,7 @@ export class PromotionService {
     return PROMOTIONS;
   }
 
-  getPromotion(id: String) : Promotion{
+  getPromotion(id: string) : Promotion{
     return PROMOTIONS.filter((promotion) => (promotion.id === id))[0];
   }
 
