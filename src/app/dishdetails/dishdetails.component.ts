@@ -26,7 +26,7 @@ export class DishdetailsComponent implements OnInit {
     this.dish = this.dishservice.getDish(id);
   }
 
-  goback() : void {
+  goBack() : void {
     this.location.back();
   }
 
