@@ -8,7 +8,11 @@
         <hr>
       </div>
     </div>
-
+    
+    <div [hidden]="dishes" align="center">
+      <mat-spinner></mat-spinner>
+      <h4>Loading... Please Wait</h4>
+    </div>
     <mat-list fxFlex>
       <mat-grid-list cols="2" rowHeight="200px">
         <!-- <mat-grid-tile *ngFor="let dish of dishes" (click) = "onSelect(dish)"> -->
@@ -22,6 +26,7 @@
       </mat-grid-list>
     </mat-list>
 
+    
 
     <!-- <app-dishdetails [dish]="selectedDish"></app-dishdetails> -->
 

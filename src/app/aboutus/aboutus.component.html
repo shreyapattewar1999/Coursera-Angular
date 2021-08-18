@@ -54,7 +54,12 @@
   </div>
 
 
-  <div fxFlex>
+  <div fxFlex [hidden]="leaders" align="center">
+    <mat-spinner></mat-spinner>
+    <h4>Loading... Please Wait</h4>
+  </div>
+
+  <div fxFlex *ngIf="leaders">
     <h2>Corporate Leadership</h2>
     <mat-card>
     <mat-list>

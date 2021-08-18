@@ -9,6 +9,12 @@ fxLayoutGap="10px">
         <!-- <mat-grid-list cols="2" rowHeight="600px">
           <h1>Dish details</h1>
         <!-- <mat-grid-tile>              -->
+
+          <div fxFlex [hidden]="dish" align="center">
+            <mat-spinner color="red"></mat-spinner>
+            <h4>Loading... Please Wait</h4>
+          </div>
+
             <mat-card *ngIf="dish" fxFlex>
               <mat-card-header>
                 <mat-card-title>
@@ -26,6 +32,10 @@ fxLayoutGap="10px">
                 <button mat-button>SHARE</button>
               </mat-card-actions>
             </mat-card>
+
+            
+          
+        
             
           <!-- </mat-grid-tile> -->
     
@@ -43,6 +53,8 @@ fxLayoutGap="10px">
             </mat-list>
 
           </mat-card>  
+
+          
           <!-- </div>
           </mat-grid-tile>
         </mat-grid-list> -->
