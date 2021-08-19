@@ -5,6 +5,7 @@ import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DishService } from '../services/dish.service';
 import { switchMap } from 'rxjs/operators';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 // const DISH: Dish
 
 @Component({
@@ -23,10 +24,19 @@ export class DishdetailsComponent implements OnInit {
     prev: string;
     next: string;
 
+    commentForm: FormGroup;
+    prev_comment = '';
+    prev_author ='';
+    prev_rating = 0;
+
   constructor(private dishService : DishService,
     private route : ActivatedRoute,
-    private location : Location) {   }
+    private location : Location,
+    private fb: FormBuilder) {  
+      this.createForm();
+     }
   
+    
   ngOnInit(): void {
     this.dishService.getDishIDs()
     .subscribe((dishIds) => this.dishIds = dishIds);
@@ -49,4 +59,57 @@ setPrevNext(dishIds: string) {
     this.selectedDish = dish;
   }
 
+  formErrors : any ={
+    'author':'',
+    'rating' : '',
+    'comment' : ''
+  }
+
+  validationMessages : any = {
+    'author' : {
+      'required':      'Author Name is required.',
+      'minlength':     'Author Name must be at least 2 characters long.',
+      'maxlength':     'Author Name cannot be more than 25 characters long.'
+    },
+    'comment' : {
+      'required':      'Comment is required.',
+      'minlength':     'Comment must be at least 5 characters long.',
+      'maxlength':     'Comment cannot be more than 50 characters long.'
+    },
+  }
+  createForm(){
+    this.commentForm = this.fb.group({
+      author:['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
+      rating: [5],
+      comment:['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]]
+    });
+    
+    this.commentForm.valueChanges.subscribe(data => this.onValueChanged(data));
+    this.onValueChanged();
+    
+  }
+
+  onValueChanged(data?: any){
+    if(!this.commentForm){return;}
+    const form = this.commentForm;
+    for(const field in this.formErrors){
+      if(this.formErrors.hasOwnProperty(field)){
+        this.formErrors[field] = '';
+        const control = form.get(field);
+        if(control || control.dirty || control.invalid || control.touched ){
+         const messages = this.validationMessages[field]; 
+         for (const key in control.errors) {
+          if (control.errors.hasOwnProperty(key)) {
+            this.formErrors[field] += messages[key] + ' ';
+            // console.log(this.formErrors[field]);
+          }
+        }
+      }
+    }
+
+  }
+}
+  onSubmit(){
+
+  }
 }

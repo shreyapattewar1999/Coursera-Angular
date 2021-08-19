@@ -37,7 +37,7 @@ fxLayoutGap="10px">
             </mat-card>
           </div>
             
-            
+          
           
         
             
@@ -59,6 +59,49 @@ fxLayoutGap="10px">
               </mat-list-item>
             </mat-list>
 
+
+          <div *ngIf="commentForm.valid">
+          <mat-list>
+            <mat-list-item>
+              <h4 matLine> {{commentForm.get('comment').value}}</h4>
+                <p matLine> {{commentForm.get('rating').value}} </p>
+                <p matLine> --{{commentForm.get('author').value}}</p>
+            </mat-list-item>    
+          </mat-list>                        
+            </div>
+          </mat-card>
+
+          <mat-card>
+          <form novalidate [formGroup]="commentForm" #fform="ngForm" (ngsubmit)="onSubmit()">
+              <mat-form-field class="full-width">
+                <input matInput formControlName="author" placeholder="Enter your name" type="text" required>
+                <mat-error *ngIf="formErrors.author">{{ formErrors.author }}</mat-error>
+              </mat-form-field>
+              <p>
+              <mat-slider
+                thumbLabel
+                tickInterval="1"
+                step="1"
+                min="0"
+                max="5"
+                value="5"
+                aria-label="units"
+                formControlName="rating"></mat-slider>
+
+              </p>
+              <mat-form-field class="full-width">
+                <textarea matInput formControlName="comment" placeholder="Your Comments" rows=12 cols=50 required></textarea>
+                <mat-error *ngIf="formErrors.comment">{{ formErrors.comment }}</mat-error>
+
+              </mat-form-field>
+
+              <p>
+                <mat-dialog-actions>
+                  <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="commentForm.invalid" >submit</button>
+                </mat-dialog-actions>
+              </p>
+              
+            </form>
           </mat-card>
         </div>
           
