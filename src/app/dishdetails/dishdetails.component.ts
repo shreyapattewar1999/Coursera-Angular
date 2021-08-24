@@ -122,6 +122,8 @@ setPrevNext(dishIds: string) {
       ,errmess => {this.dish = null; this.dishCopy = null; this.dishErrMsg = errmess;} );
     
     this.comment = null;
+    console.log(this.comment);
+    // this.commentFormDirective.resetForm();
     this.commentForm.reset({
       author: '',
       comment: '',

@@ -100,7 +100,7 @@ fxLayoutGap="10px">
 
               <p>
                 <mat-dialog-actions>
-                  <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="commentForm.invalid" >submit</button>
+                  <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="commentForm.invalid" (click)="onSubmit()" >submit</button>
                 </mat-dialog-actions>
               </p>
               
