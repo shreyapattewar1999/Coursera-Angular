@@ -10,7 +10,7 @@ fxLayoutGap="10px">
           <h1>Dish details</h1>
         <!-- <mat-grid-tile>              -->
 
-          <div fxFlex [hidden]="dish" align="center">
+          <div fxFlex [hidden]="dish || dishErrMsg" align="center">
             <mat-spinner color="red"></mat-spinner>
             <h4>Loading... Please Wait</h4>
           </div>
@@ -38,7 +38,10 @@ fxLayoutGap="10px">
           </div>
             
           
-          
+          <div fxFlex *ngIf="dishErrMsg">
+            <h2>Error</h2>
+            <h4>{{dishErrMsg}}</h4>
+          </div>
         
             
           <!-- </mat-grid-tile> -->

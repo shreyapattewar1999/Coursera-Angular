@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { DishService } from './services/dish.service';
 import { PromotionService } from './services/promotion.service';
 import { LeaderService } from './services/leader.service';
+import { ProcessHTTPMsgService } from './services/process-httpmsg.service';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
@@ -88,6 +89,7 @@ import { baseURL } from './shared/baseurl';
     DishService, 
     PromotionService,
     LeaderService,
+    ProcessHTTPMsgService,
     {provide:'BaseURL', useValue:baseURL}
   ],
   bootstrap: [AppComponent],

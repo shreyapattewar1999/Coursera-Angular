@@ -9,7 +9,7 @@
       </div>
     </div>
     
-    <div [hidden]="dishes" align="center">
+    <div [hidden]="dishes || errMsg" align="center">
       <mat-spinner></mat-spinner>
       <h4>Loading... Please Wait</h4>
     </div>
@@ -26,7 +26,10 @@
       </mat-grid-list>
     </mat-list>
 
-    
+    <div fxFlex *ngIf="errMsg">
+      <h2>Error</h2>
+      <h4>{{errMsg}}</h4>
+    </div>
 
     <!-- <app-dishdetails [dish]="selectedDish"></app-dishdetails> -->
 

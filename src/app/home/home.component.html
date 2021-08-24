@@ -5,7 +5,7 @@
      fxLayoutAlign.gt-md="space-around center"
      fxLayoutGap="10px">
     
-  <div fxFlex [hidden]="dish" align="center">
+  <div fxFlex [hidden]="dish || dishErrMsg" align="center">
     <mat-spinner></mat-spinner>
     <h4>Loading... Please Wait</h4>
   </div>
@@ -23,6 +23,11 @@
       </p>
     </mat-card-content>
   </mat-card>
+
+  <div fxFlex *ngIf="dishErrMsg">
+    <h2>Error</h2>
+    <h4>{{dishErrMsg}}</h4>
+  </div>
 
   <div fxFlex [hidden]="promotion" align="center">
     <mat-spinner></mat-spinner>
@@ -62,3 +67,4 @@
     </mat-card-content>
   </mat-card>
 </div>
+
