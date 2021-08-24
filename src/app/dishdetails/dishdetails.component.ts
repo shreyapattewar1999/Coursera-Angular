@@ -7,6 +7,7 @@ import { DishService } from '../services/dish.service';
 import { switchMap } from 'rxjs/operators';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 // const DISH: Dish
+import { Comment } from '../shared/comment';
 
 
 @Component({
@@ -25,7 +26,8 @@ export class DishdetailsComponent implements OnInit {
     prev: string;
     next: string;
     dishErrMsg : string;
-
+    dishCopy : Dish;
+    comment: Comment;
     commentForm: FormGroup;
     prev_comment = '';
     prev_author ='';
@@ -44,7 +46,7 @@ export class DishdetailsComponent implements OnInit {
     this.dishService.getDishIDs()
     .subscribe((dishIds) => this.dishIds = dishIds);
   this.route.params.pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
-      .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id) }, error => this.dishErrMsg = error);
+      .subscribe(dish => { this.dish = dish; this.dishCopy = dish; this.setPrevNext(dish.id) }, error => this.dishErrMsg = error);
 }
 
 setPrevNext(dishIds: string) {
@@ -113,6 +115,19 @@ setPrevNext(dishIds: string) {
   }
 }
   onSubmit(){
+    this.comment = this.commentForm.value;
+    this.comment.date = new Date().toISOString();
+    this.dishCopy.comments.push(this.comment);
+    this.dishService.putDish(this.dishCopy).subscribe(dish => {this.dish = dish; this.dishCopy = this.dish}
+      ,errmess => {this.dish = null; this.dishCopy = null; this.dishErrMsg = errmess;} );
+    
+    this.comment = null;
+    this.commentForm.reset({
+      author: '',
+      comment: '',
+      rating: 5
+    });
 
+    
   }
 }
