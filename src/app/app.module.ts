@@ -1,5 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import {MatSliderModule} from '@angular/material/slider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -43,6 +44,8 @@ import { AboutusComponent } from './aboutus/aboutus.component';
 import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
 
+import { baseURL } from './shared/baseurl';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,14 +80,15 @@ import { LoginComponent } from './login/login.component';
     MatSlideToggleModule,
     MatOptionModule,
     MatProgressSpinnerModule,
-    MatSliderModule
+    MatSliderModule,
+    HttpClientModule
   
   ],
   providers: [
     DishService, 
     PromotionService,
     LeaderService,
-    
+    {provide:'BaseURL', useValue:baseURL}
   ],
   bootstrap: [AppComponent],
   entryComponents: [
