@@ -8,18 +8,33 @@ import { switchMap } from 'rxjs/operators';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 // const DISH: Dish
 import { Comment } from '../shared/comment';
-
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-dishdetails',
   templateUrl: './dishdetails.component.html',
-  styleUrls: ['./dishdetails.component.scss']
+  styleUrls: ['./dishdetails.component.scss'],
+  animations: [
+    trigger('visibility', [
+        state('shown', style({
+            transform: 'scale(1.0)',
+            opacity: 1
+        })),
+        state('hidden', style({
+            transform: 'scale(0.5)',
+            opacity: 0
+        })),
+        transition('* => *', animate('0.5s ease-in-out'))
+    ])
+  ]
 })
 export class DishdetailsComponent implements OnInit {
 //   dishes: Dish[] = DISHES;
 //   comments=this.dishes[0].comments;
 
     // @Input()
+    visibility = 'shown';
+
     dish:Dish;
     selectedDish : Dish;
     dishIds: string[];
@@ -45,8 +60,8 @@ export class DishdetailsComponent implements OnInit {
   ngOnInit(): void {
     this.dishService.getDishIDs()
     .subscribe((dishIds) => this.dishIds = dishIds);
-  this.route.params.pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
-      .subscribe(dish => { this.dish = dish; this.dishCopy = dish; this.setPrevNext(dish.id) }, error => this.dishErrMsg = error);
+  this.route.params.pipe(switchMap((params: Params) => {this.visibility='hidden';return this.dishService.getDish(params['id'])}))
+      .subscribe(dish => { this.dish = dish; this.dishCopy = dish; this.setPrevNext(dish.id); this.visibility='shown'; }, error => this.dishErrMsg = error);
 }
 
 setPrevNext(dishIds: string) {
@@ -132,4 +147,6 @@ setPrevNext(dishIds: string) {
 
     
   }
+
+  
 }
