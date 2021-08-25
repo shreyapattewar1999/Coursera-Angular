@@ -13,7 +13,7 @@
       <mat-spinner></mat-spinner>
       <h4>Loading... Please Wait</h4>
     </div>
-    <div fxFlex *ngIf="dishes" [@expand]s>
+    <div fxFlex *ngIf="dishes" [@expand]>
       <mat-grid-list cols="2" rowHeight="200px">
         <!-- <mat-grid-tile *ngFor="let dish of dishes" (click) = "onSelect(dish)"> -->
         <mat-grid-tile *ngFor="let dish of dishes" [routerLink] = "['/dishdetail', dish.id]" appHighlight>
